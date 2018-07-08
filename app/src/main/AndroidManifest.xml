@@ -17,8 +17,6 @@
         </activity>
         <activity android:name=".ShowInfoActivity">
         </activity>
-        <activity android:name=".DisplayInfoActivity">
-        </activity>
     </application>
 
 </manifest>

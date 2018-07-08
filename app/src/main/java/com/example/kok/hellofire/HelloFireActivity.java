@@ -17,7 +17,7 @@ public class HelloFireActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.news_articles);
+        setContentView(R.layout.activity_hello_fire);
     }
 
     public void showCurrentTime(View view) {
@@ -30,7 +30,7 @@ public class HelloFireActivity extends AppCompatActivity {
     }
 
     public void displayInfo(View view) {
-        Intent intent = new Intent(this, DisplayInfoActivity.class);
+        Intent intent = new Intent(this, ShowInfoActivity.class);
         EditText et = (EditText) findViewById(R.id.text_input);
         String msg = et.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, msg);
