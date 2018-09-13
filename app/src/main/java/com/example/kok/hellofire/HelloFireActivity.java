@@ -1,6 +1,7 @@
 package com.example.kok.hellofire;
 
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,8 @@ import java.util.Date;
 
 public class HelloFireActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE = "com.example.kok.hellofire.MESSAGE";
+    public static final String EXTRA_MESSAGE = "com.example.kok.hellofire.MESSAGE";
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +38,12 @@ public class HelloFireActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, msg);
         Log.d("whj", msg);
         startActivity(intent);
+    }
+
+    public void openCamera(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
 }

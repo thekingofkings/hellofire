@@ -26,11 +26,24 @@
         android:id="@+id/button_display_info"
         android:onClick="displayInfo"/>
 
-    <Button
-        android:text="Time"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_time"
-        android:onClick="showCurrentTime"
-        android:layout_gravity="right"/>
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/button_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:onClick="showCurrentTime"
+            android:text="Time" />
+
+        <Button
+            android:id="@+id/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:onClick="openCamera"
+            android:text="Camera" />
+    </LinearLayout>
 </LinearLayout>
