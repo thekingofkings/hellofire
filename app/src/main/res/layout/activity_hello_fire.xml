@@ -39,11 +39,19 @@
             android:text="Time" />
 
         <Button
-            android:id="@+id/camera"
+            android:id="@+id/button_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:onClick="openCamera"
             android:text="Camera" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_light"
+            android:layout_gravity="right"
+            android:text="Light"
+            android:onClick="toggleLight"/>
     </LinearLayout>
 </LinearLayout>
