@@ -29,7 +29,8 @@
     <SurfaceView
         android:id="@+id/camera_light_view"
         android:layout_width="200dp"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"
+        android:visibility="invisible"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
