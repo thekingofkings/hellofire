@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "430483520899",
+    "firebase_url": "https://hellofire-94fec.firebaseio.com",
+    "project_id": "hellofire-94fec",
+    "storage_bucket": "hellofire-94fec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430483520899:android:98a89b21cd19ad82",
+        "android_client_info": {
+          "package_name": "com.example.kok.hellofire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "430483520899-vpgth7foajq1silqf006c1kp0j1ru4hc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADjx8oWXlvlYgePz4VGNlYKO0F4YWFHLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "430483520899-vpgth7foajq1silqf006c1kp0j1ru4hc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
