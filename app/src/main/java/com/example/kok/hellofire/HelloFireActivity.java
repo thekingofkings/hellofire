@@ -10,14 +10,22 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Date;
 
@@ -42,6 +50,25 @@ public class HelloFireActivity extends AppCompatActivity implements SurfaceHolde
                     MY_REQUEST_CODE);
         }
         //createNotificationChannel();
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("whj", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("whj", msg);
+                        Toast.makeText(HelloFireActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -51,8 +78,7 @@ public class HelloFireActivity extends AppCompatActivity implements SurfaceHolde
         if (requestCode == MY_REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.d("whj", "Now user should be able to use camera.");
-            }
-            else {
+            } else {
                 Log.d("whj", "Your app will not have this permission.");
             }
         }
