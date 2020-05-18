@@ -3,6 +3,7 @@
     android:id="@+id/activity_hello_fire"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -12,11 +13,11 @@
     tools:context="com.example.kok.hellofire.HelloFireActivity">
 
     <EditText
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/text_input"
         android:layout_weight="1"
-        android:hint="Hello! Please write something here."/>
+        android:hint="Message: Please write something here."/>
 
     <Button
         android:text="Send"
@@ -25,10 +26,38 @@
         android:id="@+id/button_display_info"
         android:onClick="displayInfo"/>
 
-    <Button
-        android:text="Time"
+    <SurfaceView
+        android:id="@+id/camera_light_view"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:visibility="invisible"/>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_time"
-        android:onClick="showCurrentTime"/>
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/button_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:onClick="showCurrentTime"
+            android:text="Time" />
+
+        <Button
+            android:id="@+id/button_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:onClick="openCamera"
+            android:text="Camera" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_light"
+            android:layout_gravity="right"
+            android:text="Light"
+            android:onClick="toggleLight"/>
+    </LinearLayout>
 </LinearLayout>

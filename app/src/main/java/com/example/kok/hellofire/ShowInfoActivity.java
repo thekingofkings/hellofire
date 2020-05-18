@@ -2,7 +2,7 @@ package com.example.kok.hellofire;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,8 +18,11 @@ public class ShowInfoActivity extends AppCompatActivity {
         String info = intent.getStringExtra(HelloFireActivity.EXTRA_MESSAGE);
         Log.d("msg", info);
         TextView tv = new TextView(this);
-        tv.setTextSize(40);
-        tv.setText(info);
+        tv.setTextSize(24);
+        if (info.isEmpty())
+            tv.setText("No message to show.");
+        else
+            tv.setText(info);
 
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_show_info);
         layout.addView(tv);
