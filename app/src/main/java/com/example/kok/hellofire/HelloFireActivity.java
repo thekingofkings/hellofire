@@ -147,10 +147,6 @@ public class HelloFireActivity extends AppCompatActivity implements SurfaceHolde
     }
 
     public void toggleLight(View view) {
-//        SurfaceView preview = findViewById(R.id.camera_light_view);
-//        cameraPreviewHolder = preview.getHolder();
-//        cameraPreviewHolder.addCallback(this);
-
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             if (!LIGHT_ON) {
                 try {
