@@ -26,12 +26,6 @@
         android:id="@+id/button_display_info"
         android:onClick="displayInfo"/>
 
-    <SurfaceView
-        android:id="@+id/camera_light_view"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:visibility="invisible"/>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,4 +54,9 @@
             android:text="Light"
             android:onClick="toggleLight"/>
     </LinearLayout>
+
+    <androidx.camera.view.PreviewView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:id="@+id/torchPreviewView" />
 </LinearLayout>

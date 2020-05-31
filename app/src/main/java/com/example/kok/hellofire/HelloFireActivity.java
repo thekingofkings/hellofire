@@ -6,38 +6,49 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
-public class HelloFireActivity extends AppCompatActivity implements SurfaceHolder.Callback {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.camera2.Camera2Config;
+import androidx.camera.core.Camera;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.CameraXConfig;
+import androidx.camera.core.Preview;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
+
+public class HelloFireActivity extends AppCompatActivity implements CameraXConfig.Provider {
 
     public static final String EXTRA_MESSAGE = "com.example.kok.hellofire.MESSAGE";
     private static int MY_REQUEST_CODE = 20181110;
     private static String CHANNEL_ID = "WHJ";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static Camera camera = null;
-    static SurfaceHolder cameraPreviewHolder = null;
     static boolean LIGHT_ON = false;
+
+    private ListenableFuture<ProcessCameraProvider> cameraProviderFut;
+    private CameraSelector torchCameraSelector;
+    private Preview torchPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +80,11 @@ public class HelloFireActivity extends AppCompatActivity implements SurfaceHolde
                         Toast.makeText(HelloFireActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        cameraProviderFut = ProcessCameraProvider.getInstance(getApplicationContext());
+        torchCameraSelector = new CameraSelector.Builder()
+                .requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
+        torchPreview = new Preview.Builder().build();
     }
 
     @Override
@@ -148,54 +164,34 @@ public class HelloFireActivity extends AppCompatActivity implements SurfaceHolde
 
     public void toggleLight(View view) {
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-            if (!LIGHT_ON) {
+            // toggle light
+            LIGHT_ON = !LIGHT_ON;
+            cameraProviderFut.addListener(() -> {
                 try {
-                    camera = Camera.open(0);
-                    Camera.Parameters p = camera.getParameters();
-                    p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                    camera.setParameters(p);
-                    camera.startPreview();
-                    camera.autoFocus(new Camera.AutoFocusCallback() {
-                        public void onAutoFocus(boolean success, Camera camera) {
-                        }
-                    });
-                    Log.d("whj", "Turn on camera light.");
-                    LIGHT_ON = true;
-                } catch (Exception e) {
-                    Log.d("whj", "Failed to open camera.");
+                    ProcessCameraProvider cameraProvider = cameraProviderFut.get();
+                    camera = cameraProvider.bindToLifecycle(
+                            (LifecycleOwner) this,
+                            torchCameraSelector,
+                            torchPreview
+                    );
+                    PreviewView previewView = findViewById(R.id.torchPreviewView);
+                    torchPreview.setSurfaceProvider(
+                            previewView.createSurfaceProvider(camera.getCameraInfo()));
+                    camera.getCameraControl().enableTorch(LIGHT_ON);
+                    Log.d("whj", "Toggle camera light.");
+                    if (!LIGHT_ON) {
+                        cameraProvider.unbind(torchPreview);
+                    }
+                } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
-            } else {
-                camera.stopPreview();
-                camera.release();
-                camera = null;
-                Log.d("whj", "Turn off camera light.");
-                LIGHT_ON = false;
-            }
+            }, ContextCompat.getMainExecutor(this));
         }
     }
 
-    /**
-     * ========================================================
-     * Implement abstract function for SurfaceHolder.Callback
-     * ========================================================
-     */
-    public void surfaceCreated(SurfaceHolder holder) {
-        cameraPreviewHolder = holder;
-        try {
-            camera.setPreviewDisplay(cameraPreviewHolder);
-        } catch (Exception e) {
-            Log.d("whj", "Failed to set preview holder for camera.");
-            e.printStackTrace();
-        }
+    @NonNull
+    @Override
+    public CameraXConfig getCameraXConfig() {
+        return Camera2Config.defaultConfig();
     }
-
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        // deliberately empty
-    }
-
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        cameraPreviewHolder = null;
-    }
-
 }
