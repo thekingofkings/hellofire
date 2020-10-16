@@ -15,7 +15,7 @@ public class ShowInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_info);
 
         Intent intent = getIntent();
-        String info = intent.getStringExtra(HelloFireActivity.EXTRA_MESSAGE);
+        String info = intent.getStringExtra(InfoFragment.EXTRA_MESSAGE);
         Log.d("msg", info);
         TextView tv = new TextView(this);
         tv.setTextSize(24);

@@ -6,11 +6,11 @@
               android:layout_height="fill_parent">
 
 
-    <fragment android:name="com.example.kok.hellofire.ArticleFragment"
+    <fragment android:name="com.example.kok.hellofire.InfoFragment"
               android:id="@+id/fragment_article"
               android:layout_weight="2"
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              tools:layout="@layout/fragment_view"/>
+              tools:layout="@layout/fragment_info"/>
 
 </LinearLayout>
