@@ -49,7 +49,7 @@ public class HelloFireActivity extends AppCompatActivity {
                 });
 
         // set up the Tab Layout
-        String[] tabTexts = {"Info", "Camera"};
+        String[] tabTexts = {"Info", "Camera", "Log"};
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         // set up the ViewPager
         final ViewPager2 viewPager = (ViewPager2) findViewById(R.id.pager);
