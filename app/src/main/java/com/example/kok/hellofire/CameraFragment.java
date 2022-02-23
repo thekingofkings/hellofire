@@ -54,14 +54,15 @@ public class CameraFragment extends Fragment implements CameraXConfig.Provider, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getActivity().checkSelfPermission(Manifest.permission.CAMERA)
+        if (requireActivity().checkSelfPermission(Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
             requestPermissions(new String[]{Manifest.permission.CAMERA},
                     MY_REQUEST_CODE);
         }
 
-        cameraProviderFut = ProcessCameraProvider.getInstance(getActivity().getApplicationContext());
+        cameraProviderFut = ProcessCameraProvider.getInstance(
+                requireActivity().getApplicationContext());
         torchCameraSelector = new CameraSelector.Builder()
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
         torchPreview = new Preview.Builder().build();
@@ -102,26 +103,26 @@ public class CameraFragment extends Fragment implements CameraXConfig.Provider, 
 
     public void openCamera(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
     public void toggleLight(View view) {
-        if (getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+        if (requireActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             // toggle light
             LIGHT_ON = !LIGHT_ON;
             cameraProviderFut.addListener(() -> {
                 try {
                     ProcessCameraProvider cameraProvider = cameraProviderFut.get();
+                    PreviewView previewView = requireView().findViewById(R.id.torchPreviewView);
+                    torchPreview.setSurfaceProvider(previewView.getSurfaceProvider());
                     camera = cameraProvider.bindToLifecycle(
                             (LifecycleOwner) this,
                             torchCameraSelector,
                             torchPreview
                     );
-                    PreviewView previewView = getView().findViewById(R.id.torchPreviewView);
-                    torchPreview.setSurfaceProvider(
-                            previewView.createSurfaceProvider(camera.getCameraInfo()));
+
                     camera.getCameraControl().enableTorch(LIGHT_ON);
                     Log.d("whj", "Toggle camera light.");
                     if (!LIGHT_ON) {

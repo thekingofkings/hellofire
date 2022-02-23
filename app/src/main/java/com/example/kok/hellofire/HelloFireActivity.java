@@ -5,19 +5,17 @@ import android.app.NotificationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TableLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * Build the main page of the app.
@@ -38,17 +36,17 @@ public class HelloFireActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hello_fire);
         //createNotificationChannel();
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                    public void onComplete(@NonNull Task<String> task) {
                         if (!task.isSuccessful()) {
                             Log.w("whj", "getInstanceId failed", task.getException());
                             return;
                         }
 
                         // Get new Instance ID token
-                        String token = task.getResult().getToken();
+                        String token = task.getResult();
 
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
