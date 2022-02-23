@@ -19,6 +19,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+/**
+ * Build the main page of the app.
+ *
+ * It populates layout {@link R.layout.activity_hello_fire} with a {@link PagerAdapter}.
+ *
+ * When this main activity starts, two tasks are completed in the background:
+ *  1. Register a notification channel.
+ *  2. Initiate a Firebase instance.
+ */
 public class HelloFireActivity extends AppCompatActivity {
 
     private static String CHANNEL_ID = "WHJ";

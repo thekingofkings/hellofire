@@ -27,9 +27,18 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 
+/**
+ * The second tab of the app -- Camera Tab
+ *
+ * It uses the layout {@link R.layout.fragment_camera}.
+ *
+ * There are two functions implemented:
+ *  1. Open the pre-defined image capture intent with `camera` button.
+ *  2. Turn on the camera light with `torch` button.
+ */
 public class CameraFragment extends Fragment implements CameraXConfig.Provider, View.OnClickListener {
 
-    private static final int MY_REQUEST_CODE = 20181110;
+    private static final int MY_REQUEST_CODE = 222;
     static Camera camera = null;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static boolean LIGHT_ON = false;

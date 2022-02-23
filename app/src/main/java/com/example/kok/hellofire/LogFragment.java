@@ -25,6 +25,17 @@ import java.util.Locale;
 
 import androidx.fragment.app.Fragment;
 
+/**
+ * The third tab of the app -- Log Tab
+ *
+ * This populates the layout {@link R.layout.fragment_info}.
+ *
+ * When this fragment is created, it opens the local file `local_log` in appending mode.
+ *
+ * Two functions are implemented in this tab:
+ *  1. Write some message in the text box and use `write log` button to persist the message in the file.
+ *  2. Use `show log` button to show the file content in the {@link ShowInfoActivity}.
+ */
 public class LogFragment extends Fragment implements View.OnClickListener {
 
     private static final String LOG_FILE_NAME = "local_log";

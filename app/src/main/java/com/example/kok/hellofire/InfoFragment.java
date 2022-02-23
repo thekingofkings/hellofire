@@ -16,7 +16,18 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
-
+/**
+ * The first tab of the app -- Info Tab
+ *
+ * It uses the layout {@value R.layout.fragment_info}.
+ *
+ * There are two interactive functions on this tab:
+ *  1. An input message box and a `send` button to send the message to notification channel.
+ *  2. A `time` button to get current time and also sent it to notification channel.
+ *
+ * The outcome message (either inputs or current time) is shown in the new activity
+ * {@link ShowInfoActivity}.
+ */
 public class InfoFragment extends Fragment implements View.OnClickListener {
 
     public static final String EXTRA_MESSAGE = "com.example.kok.hellofire.MESSAGE";

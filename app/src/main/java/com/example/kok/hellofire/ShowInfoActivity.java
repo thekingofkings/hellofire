@@ -7,6 +7,11 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * Activity to populate the layout {@link R.layout.activity_show_info}.
+ *
+ * It has a textview area to show a message.
+ */
 public class ShowInfoActivity extends AppCompatActivity {
 
     @Override
