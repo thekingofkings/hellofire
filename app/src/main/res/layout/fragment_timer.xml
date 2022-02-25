@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:id="@+id/timer_list">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/title"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:text="Activity Time Tracking"
+            android:layout_width="wrap_content" />
+
+        <Button
+            android:id="@+id/button_new_activity"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:layout_margin="@dimen/text_margin"
+            android:text="Add Activity"
+            android:layout_width="wrap_content" />
+    </LinearLayout>
+
+
+</LinearLayout>

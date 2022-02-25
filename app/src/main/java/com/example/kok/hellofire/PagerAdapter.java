@@ -21,14 +21,11 @@ public class PagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                InfoFragment tab0 = new InfoFragment();
-                return tab0;
+                return new InfoFragment();
             case 1:
-                CameraFragment tab1 = new CameraFragment();
-                return tab1;
+                return new CameraFragment();
             case 2:
-                LogFragment tab2 = new LogFragment();
-                return tab2;
+                return new LogFragment();
             default:
                 return null;
         }
